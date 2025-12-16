@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pt2.myapplication.databinding.ActivityMainBinding;
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         scoreViewModel = new ViewModelProvider(this).get(ScoreViewModel.class);
 
+        scoreViewModel.getScore().observe(this,
+                new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+                        binding.textView.setText(integer + "");
+                    }
+                });
 
         binding.textView.setText(scoreViewModel.getScore() + "");
 
@@ -33,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         scoreViewModel.addScore(1);
-                        binding.textView.setText(scoreViewModel.getScore() + "");
                     }
                 }
         );
@@ -42,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         scoreViewModel.addScore(2);
-                        binding.textView.setText(scoreViewModel.getScore() + "");
                     }
                 }
         );
@@ -51,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         scoreViewModel.addScore(3);
-                        binding.textView.setText(scoreViewModel.getScore() + "");
                     }
                 }
         );

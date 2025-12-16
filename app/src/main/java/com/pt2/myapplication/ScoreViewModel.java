@@ -1,18 +1,30 @@
 package com.pt2.myapplication;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class ScoreViewModel extends ViewModel {
-    private int score;
+    private MutableLiveData<Integer> score;
 
-    public int getScore() {
+    public MutableLiveData<Integer> getScore() {
+        if(score == null) {
+            score = new MutableLiveData<>();
+            score.setValue(0);
+        }
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(MutableLiveData<Integer> score) {
+        if(score == null) {
+            score = new MutableLiveData<>();
+        }
         this.score = score;
     }
+
     public void addScore(int amountToAdd) {
-        this.score += amountToAdd;
+        if(score == null) {
+            score = new MutableLiveData<>();
+        }
+        this.score.setValue(score.getValue() + amountToAdd);
     }
 }
